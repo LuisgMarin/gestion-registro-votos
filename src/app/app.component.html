@@ -42,8 +42,8 @@
     />
     <title>GRV</title>
   </head>
-
-  <body class="">
+  <body class="background">
+    <app-navbar *ngIf="authService.obtenerSession()"></app-navbar>
     <router-outlet></router-outlet>
   </body>
 </html>

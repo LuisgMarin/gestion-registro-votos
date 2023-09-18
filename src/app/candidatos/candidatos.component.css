@@ -1,4 +1,4 @@
-.login {
+.container{
   background: rgb(239, 239, 239);
   background: linear-gradient(
     234deg,
@@ -10,14 +10,24 @@
     rgba(85, 100, 124, 1) 100%
   );
   font-family: Monserrat;
+  margin-top: 30px;
+  padding: 10px;
 }
 
-.login-card {
-  background: #efefef;
-  color: black;
+.example-spacer {
+  flex: 1 1 auto;
 }
 
-.login-btn {
-  background: #4d6d98;
-  color: white;
+.main-body {
+  padding-top: 20px;
+  margin: 0 auto;
+  max-width: 1348px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.action {
+  display: flex;
+  gap: 5px;
 }
