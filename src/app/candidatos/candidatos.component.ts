@@ -29,6 +29,7 @@ export class CandidatosComponent implements OnInit {
     'nombre',
     'apellido',
     'nombrePartido',
+    'action'
   ];
   dataSource!: MatTableDataSource<any>;
 
