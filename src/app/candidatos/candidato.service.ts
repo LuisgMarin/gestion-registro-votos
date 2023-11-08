@@ -6,31 +6,22 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CandidatosService {
-  private urlEndPoint: string = 'http://localhost:8080/consutar-candidatos';
-
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http: HttpClient) { }
 
-  getCandidatos(): Observable<Candidatos[]> {
-    //return of(Candidatos);
-    return this.http.get(this.urlEndPoint).pipe(
-      map(response => response as Candidatos[])
-    );
-  }
-/*
-  create(candidato: Candidatos) : Observable<Candidatos> {
-    return this.http.post<Candidatos>(this.urlEndPoint, candidato, {headers: this.httpHeaders})
+  getCandidatos(): Observable<any> {
+    return this.http.get('http://localhost:8081/consutar-candidatos');
   }
 
-  getCliente(id): Observable<Candidatos>{
-    return this.http.get<Candidatos>(`${this.urlEndPoint}/${id}`)
+  create(data: any) : Observable<any> {
+    return this.http.post(`http://localhost:8084/crear-candidato`, data, {headers: this.httpHeaders})
   }
 
-
-
-  delete(id: number): Observable<Candidatos>{
-    return this.http.delete<Candidatos>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders})
+  update(data: any): Observable<any>{
+    return this.http.put(`http://localhost:8083/editar-candidato`, data, {headers: this.httpHeaders})
   }
-*/
+  deleteCandidato(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8085/eliminar-candidato/${id}`);
+  }
 }

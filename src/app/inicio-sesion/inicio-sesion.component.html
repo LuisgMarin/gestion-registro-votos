@@ -7,20 +7,20 @@
           </i>
         </div>
         <div class="card-body">
-          <form>
+          <form #loginForm="ngForm">
             <div class="form-group form-outline mb-4">
-              <label class="form-label" for="nombreUsuario">Usuario</label>
-              <input type="nombreUsuario" [(ngModel)]="nombreUsuario" [ngModelOptions]="{standalone: true}" id="nombreUsuario" class="form-control" placeholder="Usuario"/>
+              <label class="form-label" for="usuario">Usuario</label>
+              <input type="usuario" [(ngModel)]="usuario" [ngModelOptions]="{standalone: true}" id="usuario" class="form-control" placeholder="Usuario"/>
             </div>
 
             <div class="form-group form-outline mb-4">
-              <label class="form-label" for="password">Contraseña</label>
-              <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" id="password" class="form-control" placeholder="Contraseña"/>
+              <label class="form-label" for="contrasena">Contraseña</label>
+              <input type="password" [(ngModel)]="contrasena" [ngModelOptions]="{standalone: true}" id="contrasena" class="form-control" placeholder="Contraseña"/>
             </div>
 
             <div class="row mb-4">
               <div class="col d-flex justify-content-center">
-                <button type="submit" class="btn login-btn  btn-block mb-4" (click)="Login()">
+                <button type="submit" class="btn login-btn  btn-block mb-4" (click)="onLogin()">
                   Iniciar Sesion
                 </button>
               </div>

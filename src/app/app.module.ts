@@ -29,6 +29,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CandidatoAddEditComponent } from './candidato-add-edit/candidato-add-edit.component';
 
 
 const routes: Routes=[
@@ -44,7 +45,8 @@ const routes: Routes=[
     InicioSesionComponent,
     NavbarComponent,
     HomeComponent,
-    CandidatosComponent
+    CandidatosComponent,
+    CandidatoAddEditComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,14 @@
 .background{
   background-color: aliceblue;
 }
+.bg-customizado {
+  background-color: #203454;
+}
+
+.btn {
+  padding: .55rem 1.5rem .45rem;
+}
+
+.navbar {
+  font-family: Monserrat;
+}

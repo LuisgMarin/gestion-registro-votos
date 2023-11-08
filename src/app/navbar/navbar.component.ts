@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserRoleService } from '../services/user-role.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,23 +8,28 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isNavbarCollapsed = true; // Variable para controlar el colapso del menú
-  isAuthenticated = false; // Variable para controlar si el usuario está autenticado
+  isNavbarCollapsed = true; // Variable para controlar el colap del menú
   userRole: string | null = null;
+  admin: string | null = '1';
+  jurado: string | null = '2';
 
-  constructor(private userService: UserRoleService, private authService:AuthenticationService) {}
+  constructor(
+    private userService: UserRoleService,
+    private router: Router,
+    ) {}
 
   toggleNavbar() {
-    this.isNavbarCollapsed = !this.isNavbarCollapsed; // Cambia el estado de colapso
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
 
   ngOnInit() {
-    this.userRole = this.authService.obtenerRol();
+    this.admin
+    this.jurado
+    this.userRole = this.userService.getRol();
   }
   logout() {
-    // Llamar al método de cierre de sesión
-    this.authService.logout();
-
-    // También puedes redirigir al usuario a la página de inicio de sesión u otra página después del cierre de sesión si es necesario.
+    window.localStorage.removeItem("auth_token");
+    window.localStorage.removeItem("rol");
+    this.router.navigate(['/inicio-sesion']);
   }
 }

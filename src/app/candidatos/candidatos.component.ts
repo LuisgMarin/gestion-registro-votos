@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { CandidatoAddEditComponent } from '../candidato-add-edit/candidato-add-edit.component';
+import { CoreService } from '../services/core-service.service';
 
 @Component({
   selector: 'app-candidatos',
@@ -20,6 +22,8 @@ export class CandidatosComponent implements OnInit {
   constructor(
     private candidatosService: CandidatosService,
     private _dialog: MatDialog,
+    private _canService: CandidatosService,
+    private _coreService: CoreService,
     private authService: AuthenticationService,
     private router: Router
   ) {}
@@ -37,33 +41,27 @@ export class CandidatosComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    this.getEmployeeList();
-    this.isAuthenticated = this.authService.obtenerSession() || false;
-    console.log(this.authService.obtenerSession());
-
-    if (!this.isAuthenticated) {
-      // Si el usuario no está autenticado, redirigir a la página de inicio de sesión
-      this.router.navigate(['inicio-sesion']);
-    }
+    this.getCandidatosList();
   }
 
-  /*openAddEditEmpForm() {
-    const dialogRef = this._dialog.open(EmpAddEditComponent);
+  openAddEditEmpForm() {
+    const dialogRef = this._dialog.open(CandidatoAddEditComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          this.getEmployeeList();
+          this.getCandidatosList();
         }
       },
     });
-  }*/
+  }
 
-  getEmployeeList() {
+  getCandidatosList() {
     this.candidatosService.getCandidatos().subscribe({
       next: (res) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        console.log(res)
       },
       error: console.log,
     });
@@ -77,29 +75,29 @@ export class CandidatosComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  /*
-  deleteEmployee(id: number) {
-    this._empService.deleteEmployee(id).subscribe({
+
+  deleteCandidato(id: number) {
+    this._canService.deleteCandidato(id).subscribe({
       next: (res) => {
-        this._coreService.openSnackBar('Employee deleted!', 'done');
-        this.getEmployeeList();
+        this._coreService.openSnackBar('Candidato Eliminado!', 'Hecho');
+        this.getCandidatosList();
       },
       error: console.log,
     });
   }
 
   openEditForm(data: any) {
-    const dialogRef = this._dialog.open(EmpAddEditComponent, {
+    const dialogRef = this._dialog.open(CandidatoAddEditComponent, {
       data,
     });
 
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          this.getEmployeeList();
+          this.getCandidatosList();
         }
       },
     });
   }
-*/
+
 }
