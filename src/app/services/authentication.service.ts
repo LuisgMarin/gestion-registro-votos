@@ -1,13 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserRoleService } from '../services/user-role.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+
   private isAuthenticated = new BehaviorSubject<boolean>(false);
   private userRole = new BehaviorSubject<string | null>(null);
 
@@ -15,8 +17,42 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpClient,
     private userRolService: UserRoleService,
-  ) {}
 
+  ) {
+    axios.defaults.baseURL = 'http://localhost:8088';
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+  }
+
+  getAuthToken(): string | null {
+    return window.localStorage.getItem("auth_token");
+  }
+
+  setAuthToken(token: string | null, rol: string): void {
+    if (token !== null) {
+      window.localStorage.setItem("auth_token", token);
+      window.localStorage.setItem("rol", rol);
+    } else {
+      window.localStorage.removeItem("auth_token");
+    }
+  }
+
+
+  request(method: string, url: string, data: any): Promise<any> {
+    let headers: any = {};
+
+    if (this.getAuthToken() !== null) {
+        headers = {"Authorization": "Bearer " + this.getAuthToken()};
+    }
+
+    return axios({
+        method: method,
+        url: url,
+        data: data,
+        headers: headers
+    });
+}
+
+/*
   login(nombreUsuario: string, password: string) {
     // Hacer la solicitud de inicio de sesión al servidor
     let bodyData = {
@@ -35,7 +71,7 @@ export class AuthenticationService {
           this.isAuthenticated.next(true);
           this.userRole.next(resultData.rol);
           this.router.navigateByUrl('home');
-          localStorage.setItem("session", "true");
+          localStorage.setItem("ses sion", "true");
           localStorage.setItem("rol", resultData.rol)
         } else {
           alert('Credenciales incorrectas');
@@ -74,5 +110,5 @@ export class AuthenticationService {
   obtenerRol(): string | null {
     return localStorage.getItem('rol');
   }
-
+*/
 }

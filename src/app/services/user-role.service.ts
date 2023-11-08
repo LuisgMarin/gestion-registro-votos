@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserRoleService {
+  constructor(
+  ) {}
 
-  private userRole: string;
-
-  setUserRole(role: string) {
-    this.userRole = role;
-  }
-
-  getUserRole(): string {
-    return this.userRole;
+  getRol(): string | null {
+    return window.localStorage.getItem("rol");
   }
 }
